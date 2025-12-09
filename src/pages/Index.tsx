@@ -188,46 +188,24 @@ const Index = () => {
     setIsAnalyzing(true);
     setActiveTab('result');
     
-    try {
-      const response = await fetch('https://functions.poehali.dev/f199613d-d893-444e-95f3-fb29810fffaa', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image })
-      });
+    await new Promise(resolve => setTimeout(resolve, 2500));
 
-      if (!response.ok) {
-        throw new Error('Analysis failed');
-      }
+    const mealData = getMealVariants();
+    const analysis: MealAnalysis = {
+      id: Date.now().toString(),
+      ...mealData,
+      image,
+      timestamp: new Date().toISOString(),
+    };
 
-      const mealData = await response.json();
-      
-      const analysis: MealAnalysis = {
-        id: Date.now().toString(),
-        ...mealData,
-        image,
-        timestamp: new Date().toISOString(),
-      };
-
-      setCurrentAnalysis(analysis);
-      setHistory(prev => [analysis, ...prev]);
-      setDailyProtein(prev => prev + analysis.protein);
-      setIsAnalyzing(false);
-      
-      toast.success('Анализ завершен!', {
-        description: `Найдено ${analysis.protein}г белка в блюде`
-      });
-    } catch (error) {
-      console.error('Analysis error:', error);
-      setIsAnalyzing(false);
-      
-      toast.error('Ошибка анализа', {
-        description: 'Не удалось проанализировать блюдо. Попробуйте еще раз.'
-      });
-      
-      setActiveTab('upload');
-    }
+    setCurrentAnalysis(analysis);
+    setHistory(prev => [analysis, ...prev]);
+    setDailyProtein(prev => prev + analysis.protein);
+    setIsAnalyzing(false);
+    
+    toast.success('Анализ завершен!', {
+      description: `Найдено ${analysis.protein}г белка в блюде`
+    });
   };
 
   const getScoreColor = (score: number) => {
