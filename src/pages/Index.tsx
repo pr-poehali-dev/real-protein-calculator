@@ -63,24 +63,139 @@ const Index = () => {
     }
   };
 
+  const getMealVariants = () => {
+    const variants = [
+      {
+        name: 'Говяжий стейк с картофелем',
+        protein: 52,
+        calories: 520,
+        fats: 22,
+        carbs: 35,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 2100, idealScore: 1950, score: 108, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 1380, idealScore: 1300, score: 106, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 1450, idealScore: 1400, score: 104, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 2200, idealScore: 1600, score: 138, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 680, idealScore: 700, score: 97, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 1150, idealScore: 1050, score: 110, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 1320, idealScore: 1300, score: 102, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 290, idealScore: 280, score: 104, essential: true },
+        ],
+        proteinQuality: 95,
+        limitingAminoAcid: 'Метионин'
+      },
+      {
+        name: 'Лосось на гриле с рисом',
+        protein: 38,
+        calories: 445,
+        fats: 18,
+        carbs: 42,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 1950, idealScore: 1950, score: 100, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 1290, idealScore: 1300, score: 99, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 1410, idealScore: 1400, score: 101, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 1850, idealScore: 1600, score: 116, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 720, idealScore: 700, score: 103, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 1100, idealScore: 1050, score: 105, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 1280, idealScore: 1300, score: 98, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 275, idealScore: 280, score: 98, essential: true },
+        ],
+        proteinQuality: 98,
+        limitingAminoAcid: 'Фенилаланин'
+      },
+      {
+        name: 'Омлет с сыром и овощами',
+        protein: 28,
+        calories: 320,
+        fats: 20,
+        carbs: 12,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 1820, idealScore: 1950, score: 93, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 1180, idealScore: 1300, score: 91, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 1300, idealScore: 1400, score: 93, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 1550, idealScore: 1600, score: 97, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 650, idealScore: 700, score: 93, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 1020, idealScore: 1050, score: 97, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 1150, idealScore: 1300, score: 88, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 265, idealScore: 280, score: 95, essential: true },
+        ],
+        proteinQuality: 92,
+        limitingAminoAcid: 'Фенилаланин'
+      },
+      {
+        name: 'Греческий салат с фетой',
+        protein: 15,
+        calories: 285,
+        fats: 22,
+        carbs: 18,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 980, idealScore: 1950, score: 50, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 650, idealScore: 1300, score: 50, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 720, idealScore: 1400, score: 51, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 820, idealScore: 1600, score: 51, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 350, idealScore: 700, score: 50, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 550, idealScore: 1050, score: 52, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 680, idealScore: 1300, score: 52, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 140, idealScore: 280, score: 50, essential: true },
+        ],
+        proteinQuality: 51,
+        limitingAminoAcid: 'Лейцин'
+      },
+      {
+        name: 'Чечевичный суп с хлебом',
+        protein: 22,
+        calories: 340,
+        fats: 8,
+        carbs: 52,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 1420, idealScore: 1950, score: 73, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 880, idealScore: 1300, score: 68, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 950, idealScore: 1400, score: 68, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 1320, idealScore: 1600, score: 83, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 420, idealScore: 700, score: 60, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 750, idealScore: 1050, score: 71, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 920, idealScore: 1300, score: 71, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 180, idealScore: 280, score: 64, essential: true },
+        ],
+        proteinQuality: 65,
+        limitingAminoAcid: 'Метионин'
+      },
+      {
+        name: 'Творог с бананом и орехами',
+        protein: 32,
+        calories: 395,
+        fats: 16,
+        carbs: 38,
+        aminoAcids: [
+          { name: 'Leucine', nameRu: 'Лейцин', amount: 1980, idealScore: 1950, score: 102, essential: true },
+          { name: 'Isoleucine', nameRu: 'Изолейцин', amount: 1250, idealScore: 1300, score: 96, essential: true },
+          { name: 'Valine', nameRu: 'Валин', amount: 1380, idealScore: 1400, score: 99, essential: true },
+          { name: 'Lysine', nameRu: 'Лизин', amount: 1720, idealScore: 1600, score: 108, essential: true },
+          { name: 'Methionine', nameRu: 'Метионин', amount: 610, idealScore: 700, score: 87, essential: true },
+          { name: 'Threonine', nameRu: 'Треонин', amount: 1080, idealScore: 1050, score: 103, essential: true },
+          { name: 'Phenylalanine', nameRu: 'Фенилаланин', amount: 1220, idealScore: 1300, score: 94, essential: true },
+          { name: 'Tryptophan', nameRu: 'Триптофан', amount: 270, idealScore: 280, score: 96, essential: true },
+        ],
+        proteinQuality: 89,
+        limitingAminoAcid: 'Метионин'
+      },
+    ];
+    
+    return variants[Math.floor(Math.random() * variants.length)];
+  };
+
   const analyzeMeal = async (image: string) => {
     setIsAnalyzing(true);
     setActiveTab('result');
     
     await new Promise(resolve => setTimeout(resolve, 2500));
 
+    const mealData = getMealVariants();
     const analysis: MealAnalysis = {
       id: Date.now().toString(),
-      name: 'Куриная грудка с овощами',
+      ...mealData,
       image,
-      protein: 42,
-      calories: 385,
-      fats: 12,
-      carbs: 28,
       timestamp: new Date().toISOString(),
-      aminoAcids: mockAminoAcids,
-      proteinQuality: 87,
-      limitingAminoAcid: 'Метионин'
     };
 
     setCurrentAnalysis(analysis);
