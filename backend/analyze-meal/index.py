@@ -57,7 +57,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         }
         auth_data = {'scope': 'GIGACHAT_API_PERS'}
         
-        auth_response = requests.post(auth_url, headers=auth_headers, data=auth_data, verify=False)
+        auth_response = requests.post(auth_url, headers=auth_headers, data=auth_data, verify=False, timeout=10)
         access_token = auth_response.json()['access_token']
     except Exception as e:
         return {
@@ -75,26 +75,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'Content-Type': 'application/json'
         }
         
-        prompt = """Проанализируй это блюдо и верни ТОЛЬКО JSON в таком формате (без markdown, без ```):
-{
-  "name": "название блюда",
-  "protein": число_граммов_белка,
-  "calories": число_калорий,
-  "aminoAcids": {
-    "leucine": число_мг,
-    "isoleucine": число_мг,
-    "valine": число_мг,
-    "lysine": число_мг,
-    "methionine": число_мг,
-    "phenylalanine": число_мг,
-    "threonine": число_мг,
-    "tryptophan": число_мг,
-    "histidine": число_мг
-  },
-  "limitingAminoAcid": "название_лимитирующей_аминокислоты"
-}
-
-Будь точным в расчетах белка и аминокислот."""
+        prompt = """Определи блюдо и верни JSON (без markdown):
+{"name":"название","protein":число,"calories":число,"aminoAcids":{"leucine":мг,"isoleucine":мг,"valine":мг,"lysine":мг,"methionine":мг,"phenylalanine":мг,"threonine":мг,"tryptophan":мг,"histidine":мг},"limitingAminoAcid":"название"}"""
         
         payload = {
             'model': 'GigaChat',
@@ -107,10 +89,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     ]
                 }
             ],
-            'temperature': 0.3
+            'temperature': 0.1,
+            'max_tokens': 300
         }
         
-        response = requests.post(api_url, headers=headers, json=payload, verify=False)
+        response = requests.post(api_url, headers=headers, json=payload, verify=False, timeout=45)
         result = response.json()
         
         ai_response = result['choices'][0]['message']['content']
